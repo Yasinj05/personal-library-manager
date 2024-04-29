@@ -2,7 +2,7 @@
 
 The Personal Library Manager API facilitates the management of a personal library, allowing users to manage books and authors through a RESTful interface. This application provides endpoints for CRUD operations on books and authors, making it easy to store, retrieve, update, and delete library data.
 
-## Getting Started
+## Getting Started 🚀
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
