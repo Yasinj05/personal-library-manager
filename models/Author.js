@@ -8,6 +8,7 @@ const authorSchema = new mongoose.Schema({
 
 const Author = mongoose.model("Author", authorSchema);
 
+// Validate Author data using Joi
 function validateAuthor(author) {
   const schema = Joi.object({
     name: Joi.string().required(),

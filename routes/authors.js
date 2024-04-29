@@ -1,5 +1,5 @@
 import express from "express";
-import { Author, validate } from "../models/Author.mjs";
+import { Author, validate } from "../models/Author.js";
 
 const router = express.Router();
 
