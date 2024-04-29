@@ -9,14 +9,20 @@ router.get("/", async (req, res) => {
     const authors = await Author.find();
     res.send(authors);
   } catch (err) {
-    res.status(500).send("Server error");
+    res
+      .status(500)
+      .send({ message: "Failed to retrieve authors", error: err.message });
   }
 });
 
 // POST /authors - Add a new author
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error)
+    return res.status(400).send({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
 
   const author = new Author({
     name: req.body.name,
@@ -27,7 +33,9 @@ router.post("/", async (req, res) => {
     await author.save();
     res.status(201).send(author);
   } catch (err) {
-    res.status(500).send("Error saving the author");
+    res
+      .status(500)
+      .send({ message: "Error saving the author", error: err.message });
   }
 });
 
@@ -35,34 +43,38 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const author = await Author.findById(req.params.id);
-    if (!author) return res.status(404).send("Author not found");
+    if (!author) return res.status(404).send({ message: "Author not found" });
     res.send(author);
   } catch (err) {
-    res.status(500).send("Server error");
+    res
+      .status(500)
+      .send({ message: "Error retrieving author", error: err.message });
   }
 });
 
 // PUT /authors/:id - Update an author's details
 router.put("/:id", async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error)
+    return res.status(400).send({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
 
   try {
     const updatedAuthor = await Author.findByIdAndUpdate(
       req.params.id,
-      {
-        $set: {
-          name: req.body.name,
-          bio: req.body.bio,
-        },
-      },
+      { $set: req.body },
       { new: true }
     );
 
-    if (!updatedAuthor) return res.status(404).send("Author not found");
+    if (!updatedAuthor)
+      return res.status(404).send({ message: "Author not found" });
     res.send(updatedAuthor);
   } catch (err) {
-    res.status(500).send("Error updating the author");
+    res
+      .status(500)
+      .send({ message: "Error updating the author", error: err.message });
   }
 });
 
@@ -70,10 +82,12 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const author = await Author.findByIdAndDelete(req.params.id);
-    if (!author) return res.status(404).send("Author not found");
-    res.send(author);
+    if (!author) return res.status(404).send({ message: "Author not found" });
+    res.send({ message: "Author deleted successfully" });
   } catch (err) {
-    res.status(500).send("Server error");
+    res
+      .status(500)
+      .send({ message: "Error deleting the author", error: err.message });
   }
 });
 
