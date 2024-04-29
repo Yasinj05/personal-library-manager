@@ -22,17 +22,21 @@ Follow these steps to set up your development environment:
 
    ```
    git clone https://github.com/yourusername/personal-library-manager.git
+   ```
 
+2. **Go to the project directory:**
+
+   ```
    cd personal-library-manager
    ```
 
-2. **Install dependencies:**
+3. **Install dependencies:**
 
    ```
    npm install
    ```
 
-3. **Set up environment variables:**
+4. **Set up environment variables:**
    Create a `.env` file in the root directory and add:
 
    ```
@@ -40,7 +44,7 @@ Follow these steps to set up your development environment:
    DB_URI=mongodb://localhost:27017/personalLibrary
    ```
 
-4. **Start MongoDB:**
+5. **Start MongoDB:**
    Ensure MongoDB is running on your system. Start MongoDB with:
 
    ```
