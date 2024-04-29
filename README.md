@@ -85,29 +85,77 @@ Postman is a popular tool used for testing API endpoints. Below are examples of 
   }
   ```
 
-#### Get All Books
+#### Get All Authors
 
-- **Method**: GET
-- **URL**: `{{baseUrl}}/api/books`
+- **Method:** GET
+- **URL:** `{{baseUrl}}/api/authors`
 
-#### Update a Book
+#### Retrieve an Author by ID
 
-- **Method**: PUT
-- **URL**: `{{baseUrl}}/api/books/{bookId}`
-- **Body**: Set to JSON and include:
+- **Method:** GET
+- **URL:** `{{baseUrl}}/api/authors/{authorId}`
+  - Replace `{authorId}` with the actual ID of the author.
+
+#### Update an Author's Details
+
+- **Method:** PUT
+- **URL:** `{{baseUrl}}/api/authors/{authorId}`
+- **Body:** Set to JSON and include:
   ```
   {
-    "title": "Pride and Prejudice (Updated)",
-    "author": "{authorId}",  // Use an actual authorId
-    "genre": "Fiction",
-    "publicationYear": 1813
+    "name": "Updated Author Name",
+    "bio": "Updated author biography."
   }
   ```
 
 #### Delete an Author
 
-- **Method**: DELETE
-- **URL**: `{{baseUrl}}/api/authors/{authorId}`
+- **Method:** DELETE
+- **URL:** `{{baseUrl}}/api/authors/{authorId}`
+
+#### Add a New Book
+
+- **Method:** POST
+- **URL:** `{{baseUrl}}/api/books`
+- **Body:** Set to JSON and include:
+  ```
+  {
+    "title": "New Book Title",
+    "author": "{authorId}",  // Replace `{authorId}` with the actual author's ID
+    "genre": "Mystery",
+    "publicationYear": 2020
+  }
+  ```
+
+#### Get All Books
+
+- **Method:** GET
+- **URL:** `{{baseUrl}}/api/books`
+
+#### Retrieve a Book by ID
+
+- **Method:** GET
+- **URL:** `{{baseUrl}}/api/books/{bookId}`
+  - Replace `{bookId}` with the actual ID of the book.
+
+#### Update a Book
+
+- **Method:** PUT
+- **URL:** `{{baseUrl}}/api/books/{bookId}`
+- **Body:** Set to JSON and include:
+  ```
+  {
+    "title": "Pride and Prejudice (Updated)",
+    "author": "{authorId}",  // Replace `{authorId}` with the actual author's ID
+    "genre": "Fiction",
+    "publicationYear": 1813
+  }
+  ```
+
+#### Delete an Book
+
+- **Method:** DELETE
+- **URL:** `{{baseUrl}}/api/books/{authorId}`
 
 ### Saving Requests
 
