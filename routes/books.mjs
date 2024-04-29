@@ -6,66 +6,78 @@ const router = express.Router();
 // GET /books - Retrieve a list of all books
 router.get("/", async (req, res) => {
   try {
-    const books = await Book.find().populate("author", "name");
+    const books = await Book.find().populate("author", "name -_id");
     res.send(books);
   } catch (err) {
-    res.status(500).send("Server error");
+    res
+      .status(500)
+      .send({ message: "Failed to retrieve books", error: err.message });
   }
 });
 
 // POST /books - Add a new book to the library
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error)
+    return res.status(400).send({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
 
   try {
     const newBook = new Book({
       title: req.body.title,
       author: req.body.author,
-      publishedDate: req.body.publishedDate,
-      genres: req.body.genres,
+      genre: req.body.genre,
+      publicationYear: req.body.publicationYear,
     });
     await newBook.save();
     res.status(201).send(newBook);
   } catch (err) {
-    res.status(500).send("Error saving the book");
+    res
+      .status(500)
+      .send({ message: "Error saving the book", error: err.message });
   }
 });
 
 // GET /books/:id - Retrieve a book by its ID
 router.get("/:id", async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id).populate("author", "name");
-    if (!book) return res.status(404).send("Book not found");
+    const book = await Book.findById(req.params.id).populate(
+      "author",
+      "name -_id"
+    );
+    if (!book) return res.status(404).send({ message: "Book not found" });
     res.send(book);
   } catch (err) {
-    res.status(500).send("Server error");
+    res
+      .status(500)
+      .send({ message: "Failed to retrieve the book", error: err.message });
   }
 });
 
 // PUT /books/:id - Update the information of an existing book
 router.put("/:id", async (req, res) => {
-  const { error } = validate(req.body, true);
-  if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validate(req.body);
+  if (error)
+    return res.status(400).send({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
 
   try {
     const updatedBook = await Book.findByIdAndUpdate(
       req.params.id,
-      {
-        $set: {
-          title: req.body.title,
-          author: req.body.author,
-          publishedDate: req.body.publishedDate,
-          genres: req.body.genres,
-        },
-      },
+      { $set: req.body },
       { new: true }
     );
-
-    if (!updatedBook) return res.status(404).send("Book not found");
+    if (!updatedBook)
+      return res.status(404).send({ message: "Book not found" });
     res.send(updatedBook);
   } catch (err) {
-    res.status(500).send("Server error");
+    res
+      .status(500)
+      .send({ message: "Error updating the book", error: err.message });
   }
 });
 
@@ -73,11 +85,12 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const book = await Book.findByIdAndDelete(req.params.id);
-    if (!book)
-      return res.status(404).send("The book with the given ID was not found");
-    res.send(book);
+    if (!book) return res.status(404).send({ message: "Book not found" });
+    res.send({ message: "Book deleted successfully" });
   } catch (err) {
-    res.status(500).send("Server error");
+    res
+      .status(500)
+      .send({ message: "Error deleting the book", error: err.message });
   }
 });
 
