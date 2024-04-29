@@ -98,6 +98,7 @@ Postman is a popular tool used for testing API endpoints. Below are examples of 
   ```
   {
     "title": "Pride and Prejudice (Updated)",
+    "author": "{authorId}",  // Use an actual authorId
     "genre": "Fiction",
     "publicationYear": 1813
   }
@@ -111,6 +112,10 @@ Postman is a popular tool used for testing API endpoints. Below are examples of 
 ### Saving Requests
 
 Save each request in your collection for future use or to share with your team.
+
+## Contributing
+
+Contributions are welcome! If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request.
 
 ## License
 
