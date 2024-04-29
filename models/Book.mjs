@@ -10,7 +10,7 @@ const bookSchema = new mongoose.Schema({
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Author", // Reference to the Author model
+    ref: "Author",
     required: true,
   },
   genre: {
