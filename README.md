@@ -14,7 +14,7 @@ What you need to install the software:
 - npm (Node Package Manager)
 - MongoDB
 
-### Installing
+### Installing 📥
 
 Follow these steps to set up your development environment:
 
@@ -51,7 +51,7 @@ Follow these steps to set up your development environment:
    mongod
    ```
 
-### Running the Application
+### Running the Application ⚙️
 
 Execute the following command in the terminal to start the server:
 
@@ -65,7 +65,7 @@ The server will start on `http://localhost:3000`, or on another port if specifie
 
 Postman is a popular tool used for testing API endpoints. Below are examples of how you can use Postman to interact with this API.
 
-### Setting Up Postman
+### Setting Up Postman 📫
 
 1. **Install Postman**: Download and install from [the Postman website](https://www.postman.com/downloads/).
 
@@ -169,6 +169,6 @@ Save each request in your collection for future use or to share with your team.
 
 Contributions are welcome! If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request.
 
-## License
+## License ⚖️
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
